@@ -4,13 +4,13 @@ Terminal Nine — administra los puertos de tu laptop desde la terminal o desde 
 
 ## Instalar
 
+Solo vía remota: el instalador detecta tu sistema (Linux, macOS o Windows) y descarga el binario.
+
 ```bash
-cd nine && ./install.sh
+curl -fsSL https://raw.githubusercontent.com/eleodevv/nine/main/install.sh | bash
 ```
 
 Opciones: `--system` (instala en `/usr/local/bin`), `--build` (compila desde fuente), `--prefix=DIR`.
-
-Hay binarios precompilados en [`bin/`](bin/): Linux (x86-64, ARM64), macOS (Intel, Apple Silicon) y Windows.
 
 ## Uso
 
