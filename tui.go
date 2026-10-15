@@ -19,14 +19,12 @@ const puertoServidor = 9009
 // ---------- paleta ----------
 
 var (
-	colFondo       = lipgloss.Color("#000000")
-	colSuperficie  = lipgloss.Color("#121212")
-	colSuperficie2 = lipgloss.Color("#1e1e1d")
-	colTexto       = lipgloss.Color("#faf9f6")
-	colTexto2      = lipgloss.Color("#a0a0a0")
-	colBorde       = lipgloss.Color("#333333")
-	colAcento      = lipgloss.Color("#cbb0f7")
-	colAcentoSuave = lipgloss.Color("#8f76c9")
+	colFondo      = lipgloss.Color("#000000")
+	colSuperficie = lipgloss.Color("#121212")
+	colTexto      = lipgloss.Color("#faf9f6")
+	colTexto2     = lipgloss.Color("#a0a0a0")
+	colBorde      = lipgloss.Color("#333333")
+	colAcento     = lipgloss.Color("#cbb0f7")
 
 	colOk       = lipgloss.Color("#7bd88f")
 	colAviso    = lipgloss.Color("#e2b93b")
@@ -46,7 +44,6 @@ var (
 	estiloTexto      = lipgloss.NewStyle().Foreground(colTexto)
 	estiloTexto2     = lipgloss.NewStyle().Foreground(colTexto2)
 	estiloTitulo     = lipgloss.NewStyle().Bold(true).Foreground(colTexto)
-	estiloLogo       = lipgloss.NewStyle().Foreground(colAcentoSuave)
 	estiloDesc       = lipgloss.NewStyle().Foreground(colTexto2).Italic(true)
 
 	estiloOk       = lipgloss.NewStyle().Foreground(colOk)
@@ -56,13 +53,24 @@ var (
 
 	estiloTecla = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
 
-	estiloMenuActivo = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
-	estiloMenu       = lipgloss.NewStyle().Foreground(colTexto2)
-	estiloCodigo     = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
+	estiloMenu   = lipgloss.NewStyle().Foreground(colTexto2)
+	estiloCodigo = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
 
 	estiloFilaSeleccion = lipgloss.NewStyle().
 				Background(colAcento).
 				Foreground(colFondo)
+
+	// Panel con borde para agrupar el menú y la info de emparejamiento.
+	estiloPanel = lipgloss.NewStyle().
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(colBorde).
+			Padding(1, 2)
+
+	// Fila seleccionada del menú: barra rellena con el acento.
+	estiloMenuSeleccionado = lipgloss.NewStyle().
+				Background(colAcento).
+				Foreground(colFondo).
+				Bold(true)
 
 	// El QR va negro sobre blanco para que la cámara lo lea sin importar
 	// el tema de tu terminal. go-qrcode ya incluye la zona de silencio.
@@ -71,11 +79,20 @@ var (
 			Background(lipgloss.Color("15"))
 )
 
-const logo = `       _
-  _ __ (_)_ __   ___
- | '_ \| | '_ \ / _ \
- | | | | | | | |  __/
- |_| |_|_|_| |_|\___|`
+// fuentesBloque dibuja el logotipo como un mapa de bits de 6 filas.
+// Cada '#' se pinta con el degradado; los espacios quedan en el fondo.
+var fuentesBloque = map[rune][]string{
+	'N': {"##  ##", "##  ##", "### ##", "## ###", "##  ##", "##  ##"},
+	'I': {"######", "  ##  ", "  ##  ", "  ##  ", "  ##  ", "######"},
+	'E': {"######", "##    ", "##### ", "##    ", "##    ", "######"},
+}
+
+// paradas del degradado del logotipo: rosa → violeta → azul.
+var degradadoLogo = [3][3]int{
+	{255, 143, 208},
+	{201, 160, 255},
+	{124, 156, 255},
+}
 
 // ---------- navegación ----------
 
@@ -293,6 +310,11 @@ func (m *modelo) tecla(k string) (tea.Cmd, bool) {
 			if m.opcion < len(etiquetasMenu)-1 {
 				m.opcion++
 			}
+		case "1", "2", "3", "4", "5":
+			if n := int(k[0] - '1'); n < len(etiquetasMenu) {
+				m.opcion = n
+				return m.activarOpcion()
+			}
 		case "enter", " ", "+":
 			return m.activarOpcion()
 		}
@@ -481,6 +503,60 @@ func dibujarQR(mapa [][]bool) string {
 	return strings.Join(lineas, "\n")
 }
 
+// dibujarLogo pinta "NINE" en bloques con un degradado horizontal.
+func dibujarLogo() string {
+	palabra := "NINE"
+	filas := make([]string, len(fuentesBloque['N']))
+	for i := 0; i < len(palabra); i++ {
+		glifo := fuentesBloque[rune(palabra[i])]
+		for f := range filas {
+			if i > 0 {
+				filas[f] += "  "
+			}
+			filas[f] += glifo[f]
+		}
+	}
+
+	ancho := 0
+	for _, fila := range filas {
+		if n := len([]rune(fila)); n > ancho {
+			ancho = n
+		}
+	}
+
+	salida := make([]string, len(filas))
+	for f, fila := range filas {
+		var b strings.Builder
+		for x, ch := range []rune(fila) {
+			if ch == ' ' {
+				b.WriteRune(' ')
+				continue
+			}
+			t := 0.0
+			if ancho > 1 {
+				t = float64(x) / float64(ancho-1)
+			}
+			b.WriteString(lipgloss.NewStyle().Foreground(colorDegradado(t)).Render("█"))
+		}
+		salida[f] = b.String()
+	}
+	return strings.Join(salida, "\n")
+}
+
+// colorDegradado interpola rosa → violeta → azul en t ∈ [0,1].
+func colorDegradado(t float64) lipgloss.Color {
+	t = min(1, max(0, t))
+	var a, b [3]int
+	var u float64
+	if t < 0.5 {
+		a, b, u = degradadoLogo[0], degradadoLogo[1], t*2
+	} else {
+		a, b, u = degradadoLogo[1], degradadoLogo[2], (t-0.5)*2
+	}
+	mezcla := func(i int) int { return int(float64(a[i]) + float64(b[i]-a[i])*u) }
+	return lipgloss.Color(fmt.Sprintf("#%02x%02x%02x", mezcla(0), mezcla(1), mezcla(2)))
+}
+
 // ---------- vistas ----------
 
 // View dibuja el estado actual como texto.
@@ -548,7 +624,7 @@ func (m *modelo) pie() string {
 	} else {
 		switch {
 		case m.vista == vistaInicio:
-			claves = []string{"↑↓", "mover", "enter", "seleccionar", "q", "salir"}
+			claves = []string{"↑↓", "mover", "enter", "seleccionar", "1-2", "atajos", "q", "salir"}
 		case m.vista == vistaEmparejar:
 			claves = []string{"c", "copiar", "r", "nuevo", "esc", "volver", "q", "salir"}
 		case m.confirmar:
@@ -563,41 +639,57 @@ func (m *modelo) pie() string {
 
 // ---------- inicio (menú principal) ----------
 
-func (m *modelo) conLogo() bool { return m.alto >= 16 }
+func (m *modelo) conLogo() bool { return m.alto >= 18 }
 
 func (m *modelo) cimaInicio() string {
 	partes := []string{}
 	if m.conLogo() {
-		partes = append(partes, estiloLogo.Render(logo), "")
+		partes = append(partes, dibujarLogo(), "")
 	}
 	partes = append(partes,
 		estiloTitulo.Render("Terminal Nine"),
-		estiloDesc.Render("Gestiona tus puertos desde el móvil"),
+		estiloDesc.Render("Administra los puertos de tu laptop desde el móvil"),
 		"",
 	)
-	return lipgloss.JoinVertical(lipgloss.Left, partes...)
+	return lipgloss.JoinVertical(lipgloss.Center, partes...)
 }
 
+// insetMenu es lo que ocupa el borde y el relleno superior del panel del menú.
+const insetMenu = 2
+
 func (m *modelo) menuInicio() string {
-	filas := make([]string, len(etiquetasMenu))
-	for i, et := range etiquetasMenu {
-		if i == m.opcion {
-			filas[i] = estiloMenuActivo.Render("▸ " + et)
-		} else {
-			filas[i] = estiloMenu.Render("  " + et)
+	ancho := 0
+	for _, et := range etiquetasMenu {
+		if n := len([]rune(et)); n > ancho {
+			ancho = n
 		}
 	}
-	return lipgloss.JoinVertical(lipgloss.Left, filas...)
+	ancho += len([]rune("❯ "))
+
+	filas := make([]string, len(etiquetasMenu))
+	for i, et := range etiquetasMenu {
+		texto := "  " + et
+		if i == m.opcion {
+			texto = "❯ " + et
+		}
+		texto += strings.Repeat(" ", max(0, ancho-len([]rune(texto))))
+		if i == m.opcion {
+			filas[i] = estiloMenuSeleccionado.Render(texto)
+		} else {
+			filas[i] = estiloMenu.Render(texto)
+		}
+	}
+	return estiloPanel.Render(lipgloss.JoinVertical(lipgloss.Left, filas...))
 }
 
 func (m *modelo) offsetMenu() int {
-	return altoCabecera + lipgloss.Height(m.cimaInicio())
+	return altoCabecera + lipgloss.Height(m.cimaInicio()) + insetMenu
 }
 
 func (m *modelo) vistaInicio(alto int) string {
-	cuerpo := lipgloss.JoinVertical(lipgloss.Left, m.cimaInicio(), m.menuInicio())
+	cuerpo := lipgloss.JoinVertical(lipgloss.Center, m.cimaInicio(), m.menuInicio())
 	if m.aviso != "" {
-		cuerpo = lipgloss.JoinVertical(lipgloss.Left, cuerpo, "", m.renderAviso())
+		cuerpo = lipgloss.JoinVertical(lipgloss.Center, cuerpo, "", m.renderAviso())
 	}
 	return lipgloss.Place(m.ancho, alto, lipgloss.Center, lipgloss.Top, cuerpo)
 }
