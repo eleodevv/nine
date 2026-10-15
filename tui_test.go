@@ -46,6 +46,27 @@ func TestVistasSinPanic(t *testing.T) {
 	}
 }
 
+func TestGenerarNoCierraLaVista(t *testing.T) {
+	m := modeloDePrueba()
+	m.generar()
+	if m.vista != vistaEmparejar {
+		t.Fatalf("tras generar la vista debe ser emparejar, es %d", m.vista)
+	}
+
+	// El cierre que provoca nuestro propio código nuevo no debe cerrar la vista.
+	mm, _ := m.Update(sesionCerradaMsg{})
+	if got := mm.(*modelo); got.vista != vistaEmparejar {
+		t.Fatal("generar un código no debe devolver al menú")
+	}
+
+	// Un cierre externo (sin el flag) sí debe volver al inicio.
+	m.recienGenerado = false
+	mm, _ = m.Update(sesionCerradaMsg{})
+	if got := mm.(*modelo); got.vista != vistaInicio {
+		t.Fatal("un cierre externo debe volver al menú")
+	}
+}
+
 func TestVistaEmparejarSinSesion(t *testing.T) {
 	m := modeloDePrueba()
 	m.vista = vistaEmparejar

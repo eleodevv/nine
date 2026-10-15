@@ -19,18 +19,19 @@ const puertoServidor = 9009
 // ---------- paleta ----------
 
 var (
-	colFondo      = lipgloss.Color("#F3F4F4")
-	colSuperficie = lipgloss.Color("#FAFAFA")
-	colTexto      = lipgloss.Color("#25292D")
-	colTexto2     = lipgloss.Color("#686F75")
-	colBorde      = lipgloss.Color("#D2D7DA")
-	colCian       = lipgloss.Color("#62D5F5")
-	colCianOsc    = lipgloss.Color("#1686A8")
+	colFondo       = lipgloss.Color("#000000")
+	colSuperficie  = lipgloss.Color("#121212")
+	colSuperficie2 = lipgloss.Color("#1e1e1d")
+	colTexto       = lipgloss.Color("#faf9f6")
+	colTexto2      = lipgloss.Color("#a0a0a0")
+	colBorde       = lipgloss.Color("#333333")
+	colAcento      = lipgloss.Color("#cbb0f7")
+	colAcentoSuave = lipgloss.Color("#8f76c9")
 
-	colOk       = lipgloss.Color("#2F9E5E")
-	colAviso    = lipgloss.Color("#B7791F")
-	colError    = lipgloss.Color("#C53030")
-	colInactivo = lipgloss.Color("#A0A6AB")
+	colOk       = lipgloss.Color("#7bd88f")
+	colAviso    = lipgloss.Color("#e2b93b")
+	colError    = lipgloss.Color("#f2748a")
+	colInactivo = lipgloss.Color("#6b6b6b")
 )
 
 // ---------- estilos ----------
@@ -40,12 +41,12 @@ var (
 
 	estiloCabecera   = lipgloss.NewStyle().Background(colSuperficie)
 	estiloBarra      = lipgloss.NewStyle().Background(colSuperficie)
-	estiloMarca      = lipgloss.NewStyle().Bold(true).Foreground(colCianOsc)
+	estiloMarca      = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
 	estiloMarcaTenue = lipgloss.NewStyle().Foreground(colTexto2)
 	estiloTexto      = lipgloss.NewStyle().Foreground(colTexto)
 	estiloTexto2     = lipgloss.NewStyle().Foreground(colTexto2)
 	estiloTitulo     = lipgloss.NewStyle().Bold(true).Foreground(colTexto)
-	estiloLogo       = lipgloss.NewStyle().Foreground(colCianOsc)
+	estiloLogo       = lipgloss.NewStyle().Foreground(colAcentoSuave)
 	estiloDesc       = lipgloss.NewStyle().Foreground(colTexto2).Italic(true)
 
 	estiloOk       = lipgloss.NewStyle().Foreground(colOk)
@@ -53,15 +54,15 @@ var (
 	estiloError    = lipgloss.NewStyle().Foreground(colError)
 	estiloInactivo = lipgloss.NewStyle().Foreground(colInactivo)
 
-	estiloTecla = lipgloss.NewStyle().Bold(true).Foreground(colCianOsc)
+	estiloTecla = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
 
-	estiloMenuActivo = lipgloss.NewStyle().Bold(true).Foreground(colCianOsc)
+	estiloMenuActivo = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
 	estiloMenu       = lipgloss.NewStyle().Foreground(colTexto2)
-	estiloCodigo     = lipgloss.NewStyle().Bold(true).Foreground(colCianOsc)
+	estiloCodigo     = lipgloss.NewStyle().Bold(true).Foreground(colAcento)
 
 	estiloFilaSeleccion = lipgloss.NewStyle().
-				Background(colCianOsc).
-				Foreground(lipgloss.Color("231"))
+				Background(colAcento).
+				Foreground(colFondo)
 
 	// El QR va negro sobre blanco para que la cámara lo lea sin importar
 	// el tema de tu terminal. go-qrcode ya incluye la zona de silencio.
@@ -112,8 +113,9 @@ type modelo struct {
 	opcion int
 
 	// emparejamiento
-	sesion *Sesion
-	qr     string
+	sesion         *Sesion
+	qr             string
+	recienGenerado bool
 
 	// puertos
 	puertos   []Puerto
@@ -229,6 +231,12 @@ func (m *modelo) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.tipoAviso = avisoOk
 
 	case sesionCerradaMsg:
+		// CerrarSesiones se dispara al generar un código nuevo; no debemos
+		// cerrar la vista de emparejamiento que acabamos de abrir.
+		if m.recienGenerado {
+			m.recienGenerado = false
+			return m, nil
+		}
 		m.vista = vistaInicio
 		m.sesion = nil
 		m.aviso = "código nuevo: los dispositivos se desconectaron"
@@ -441,6 +449,7 @@ func (m *modelo) generar() {
 	m.sesion = s
 	m.qr = dibujarQR(q.Bitmap())
 	m.vista = vistaEmparejar
+	m.recienGenerado = true
 	m.aviso = ""
 }
 
@@ -606,19 +615,27 @@ func (m *modelo) vistaEmparejar(alto int) string {
 
 	qr := m.qr
 	panel := m.panelCodigo(cuenta, restante)
-
-	cabe := lipgloss.Width(qr)+4+lipgloss.Width(panel) <= m.ancho && lipgloss.Height(qr) <= alto
+	qrAncho, qrAlto := lipgloss.Width(qr), lipgloss.Height(qr)
+	panelAncho, panelAlto := lipgloss.Width(panel), lipgloss.Height(panel)
 
 	var contenido string
-	if cabe {
+	switch {
+	case qrAncho+4+panelAncho <= m.ancho && qrAlto <= alto:
+		// Lo ideal: QR y código lado a lado.
 		contenido = lipgloss.JoinHorizontal(lipgloss.Center, qr, "    ", panel)
-	} else {
+	case qrAncho <= m.ancho && qrAlto+2+panelAlto <= alto:
+		// Si no cabe a lo ancho, el código va debajo del QR.
+		contenido = lipgloss.JoinVertical(lipgloss.Center, qr, "", panel)
+	case qrAncho <= m.ancho && qrAlto <= alto:
+		// Solo el QR: es lo importante para emparejar.
+		contenido = qr
+	default:
 		contenido = lipgloss.JoinVertical(lipgloss.Left, panel,
 			"", estiloTexto2.Render("amplía la ventana para ver el QR"))
 	}
 
 	if m.aviso != "" {
-		contenido = lipgloss.JoinVertical(lipgloss.Left, contenido, "", m.renderAviso())
+		contenido = lipgloss.JoinVertical(lipgloss.Center, contenido, "", m.renderAviso())
 	}
 	return lipgloss.Place(m.ancho, alto, lipgloss.Center, lipgloss.Center, contenido)
 }
