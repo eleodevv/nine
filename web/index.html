@@ -4,164 +4,164 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="nine — Terminal Nine. Administra los puertos de tu laptop desde la terminal o el móvil, en tiempo real.">
-  <meta name="theme-color" content="#e8e6e0">
+  <meta name="theme-color" content="#000000">
   <title>nine — Terminal Nine</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip" href="#resumen">Saltar al contenido</a>
 
-  <header class="cabecera" role="banner">
-    <div class="cabecera__fila">
-      <a class="marca" href="#resumen" aria-label="nine, inicio">
-        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="0.5" y="0.5" width="13" height="13" fill="#0d1355"/></svg>
-        <span>nine — Terminal Nine</span>
+  <p class="anuncio">Nuevo · Emparejamiento por QR con expiración real. <a href="#app">Cómo vincular.</a></p>
+
+  <header class="nav" role="banner">
+    <nav class="nav__inner" aria-label="Global">
+      <a class="logo" href="#resumen" aria-label="nine, inicio">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="1.5" width="15" height="15" rx="4" fill="none" stroke="#ffffff" stroke-width="1.5"/><path d="M5 6h8M5 9h8M5 12h5" stroke="#cbb0f7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>nine</span>
       </a>
-      <nav class="cabecera__nav" aria-label="Global">
+      <div class="nav__links">
         <a href="#resumen">Resumen</a>
         <a href="#funciones">Funciones</a>
         <a href="#instalar">Instalar</a>
         <a href="#app">App</a>
-      </nav>
-      <button class="menu" type="button" aria-expanded="false" aria-controls="menu-lista">
-        <span aria-hidden="true">MENU</span>
-        <span class="menu__icono" aria-hidden="true">/</span>
-      </button>
-    </div>
-    <nav class="menu__lista" id="menu-lista" aria-label="Menú" hidden>
-      <a href="#resumen">Resumen</a>
-      <a href="#funciones">Funciones</a>
-      <a href="#instalar">Instalar</a>
-      <a href="#app">App</a>
+      </div>
+      <a class="pildora" href="#instalar">Descargar</a>
     </nav>
   </header>
 
   <main id="resumen">
     <!-- Héroe -->
     <section class="heroe" aria-labelledby="heroe-titulo">
-      <p class="micro">TERMINAL NINE — ADMINISTRADOR DE PUERTOS</p>
-      <h1 class="display" id="heroe-titulo">Tus puertos,<br>bajo control.</h1>
-      <p class="lateral" aria-hidden="true">PUERTOS EN VIVO</p>
-      <p class="cuerpo-lg">nine vigila los puertos de tu laptop y te deja pararlos desde la terminal o desde el móvil, en tiempo real y por WiFi local.</p>
-      <pre class="placa">nine · Terminal Nine      ● 192.168.1.20:9009
-─────────────────────────────────────
-▸ Generar código y QR
-  Administrar puertos</pre>
+      <h1 class="heroe__titulo" id="heroe-titulo">Tus puertos, bajo control.</h1>
+      <p class="heroe__sub">nine vigila los puertos de tu laptop y te deja pararlos desde la terminal o desde el móvil, en tiempo real y por WiFi local.</p>
+
+      <div class="demos">
+        <article class="demo">
+          <div class="demo__cabecera">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="3" fill="none" stroke="#ffffff" stroke-width="1.5"/><path d="M4.5 5.5l3 3-3 3M8.5 11.5H12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <h2>nine · Terminal</h2>
+              <p>Empareja con QR o administra puertos sin soltar el teclado.</p>
+            </div>
+          </div>
+          <div class="demo__botones">
+            <a class="boton-fantasma" href="#funciones">Ver funciones</a>
+            <a class="boton-relleno" href="#instalar">Instalar nine</a>
+          </div>
+          <div class="terminal" role="img" aria-label="Interfaz de nine en la terminal">
+            <div class="terminal__barra" aria-hidden="true"><span></span><span></span><span></span><em>nine — 192.168.1.20:9009</em></div>
+<pre class="terminal__texto"><span class="v">nine</span> · Terminal Nine      ● 192.168.1.20:9009
+<span class="v">▸</span> Generar código y QR
+  Administrar puertos
+
+ PUERTO   PROCESO      PID      ESTADO
+ 3000     node         18342    ● activo
+ 5432     postgres     987      ● activo</pre>
+          </div>
+        </article>
+
+        <article class="demo">
+          <div class="demo__cabecera">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="1.5" width="9" height="13" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1.5"/><path d="M7 12.5h2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div>
+              <h2>nine · App</h2>
+              <p>Puertos en vivo en tu bolsillo: mira, mata y eleva.</p>
+            </div>
+          </div>
+          <div class="demo__botones">
+            <a class="boton-fantasma" href="#app">Cómo vincular</a>
+            <a class="boton-relleno" href="#app">Ver la app</a>
+          </div>
+          <div class="terminal" role="img" aria-label="App de nine mostrando puertos">
+            <div class="terminal__barra" aria-hidden="true"><span></span><span></span><span></span><em>Puertos en escucha</em></div>
+<pre class="terminal__texto"> <span class="v">●</span> Mi laptop              <span class="v">3 activos</span>
+
+ <span class="v">3000</span>   node · PID 18342      Matar
+ 5432   postgres · PID 987      Matar
+ 3306   mariadb · PID —         <span class="v">Elevar</span></pre>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <p class="caption">UNA HERRAMIENTA, TRES SUPERFICIES — TERMINAL, API LOCAL, APP MÓVIL</p>
-
-    <!-- Par dividido + acordeón -->
+    <!-- Funciones -->
     <section class="seccion" id="funciones" aria-labelledby="funciones-titulo">
-      <h2 class="sr" id="funciones-titulo">Funciones</h2>
-      <div class="par" aria-hidden="true">
-        <span>Ver</span>
-        <span>Actuar</span>
-      </div>
-      <div class="acordeon">
-        <div class="fila">
-          <button class="fila__boton" type="button" aria-expanded="false" aria-controls="f1" id="b1">
-            <span class="fila__titulo">Ver puertos</span>
-            <span class="fila__signo" aria-hidden="true">+</span>
-          </button>
-          <div class="fila__panel" id="f1" role="region" aria-labelledby="b1" hidden>
-            <p class="fila__texto">Lista los puertos TCP en escucha, sin duplicados y ordenados, con PID y proceso.</p>
-            <a class="fila__link" href="#instalar">[ EMPEZAR → ]</a>
-          </div>
-        </div>
-        <div class="fila">
-          <button class="fila__boton" type="button" aria-expanded="false" aria-controls="f2" id="b2">
-            <span class="fila__titulo">Parar procesos</span>
-            <span class="fila__signo" aria-hidden="true">+</span>
-          </button>
-          <div class="fila__panel" id="f2" role="region" aria-labelledby="b2" hidden>
-            <p class="fila__texto">Termina el proceso de un puerto con confirmación, desde la terminal o el móvil.</p>
-            <a class="fila__link" href="#app">[ VER LA APP → ]</a>
-          </div>
-        </div>
-        <div class="fila">
-          <button class="fila__boton" type="button" aria-expanded="false" aria-controls="f3" id="b3">
-            <span class="fila__titulo">Emparejar móvil</span>
-            <span class="fila__signo" aria-hidden="true">+</span>
-          </button>
-          <div class="fila__panel" id="f3" role="region" aria-labelledby="b3" hidden>
-            <p class="fila__texto">Escanea el QR o escribe el código de 6 dígitos con 2:00 de vida y un solo uso.</p>
-            <a class="fila__link" href="#app">[ VER LA APP → ]</a>
-          </div>
-        </div>
-        <div class="fila">
-          <button class="fila__boton" type="button" aria-expanded="false" aria-controls="f4" id="b4">
-            <span class="fila__titulo">Elevar privilegios</span>
-            <span class="fila__signo" aria-hidden="true">+</span>
-          </button>
-          <div class="fila__panel" id="f4" role="region" aria-labelledby="b4" hidden>
-            <p class="fila__texto">Pide la contraseña con el diálogo nativo del sistema y controla también los puertos de root.</p>
-            <a class="fila__link" href="#app">[ VER LA APP → ]</a>
-          </div>
-        </div>
-        <div class="fila">
-          <button class="fila__boton" type="button" aria-expanded="false" aria-controls="f5" id="b5">
-            <span class="fila__titulo">Lanzar servidores</span>
-            <span class="fila__signo" aria-hidden="true">+</span>
-          </button>
-          <div class="fila__panel" id="f5" role="region" aria-labelledby="b5" hidden>
-            <p class="fila__texto">Levanta Python o Node en el puerto que elijas, directo desde la app.</p>
-            <a class="fila__link" href="#app">[ VER LA APP → ]</a>
-          </div>
-        </div>
-        <div class="fila">
-          <button class="fila__boton" type="button" aria-expanded="false" aria-controls="f6" id="b6">
-            <span class="fila__titulo">Tiempo real</span>
-            <span class="fila__signo" aria-hidden="true">+</span>
-          </button>
-          <div class="fila__panel" id="f6" role="region" aria-labelledby="b6" hidden>
-            <p class="fila__texto">La terminal y el móvil se actualizan solos por eventos en vivo cuando algo cambia.</p>
-            <a class="fila__link" href="#instalar">[ EMPEZAR → ]</a>
-          </div>
-        </div>
+      <h2 class="titulo-seccion" id="funciones-titulo">Hecho para el flujo diario.</h2>
+      <div class="rejilla">
+        <article class="tarjeta">
+          <h3>Tiempo real</h3>
+          <p>La terminal y el móvil se actualizan solos por eventos en vivo cuando un puerto aparece o desaparece.</p>
+          <p class="meta"><code>GET /eventos</code> · ≤1 s</p>
+        </article>
+        <article class="tarjeta">
+          <h3>QR y código</h3>
+          <p>Código de 6 dígitos con 2:00 de vida, un solo uso y QR escaneable desde la terminal.</p>
+          <p class="meta"><code>POST /emparejar</code> · 401 si expiró</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Privilegios</h3>
+          <p>Eleva con el diálogo nativo del sistema y controla también los puertos de root.</p>
+          <p class="meta"><code>pkexec</code> · osascript · UAC</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Parar procesos</h3>
+          <p>Termina el proceso de un puerto con confirmación, desde la terminal o el móvil.</p>
+          <p class="meta">confirmación · animación de salida</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Lanzar servidores</h3>
+          <p>Levanta Python o Node en el puerto que elijas, directo desde la app.</p>
+          <p class="meta"><code>POST /lanzar</code> · python · node</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Binarios</h3>
+          <p>Linux, macOS Intel y Apple Silicon, y Windows. Un solo archivo, sin dependencias.</p>
+          <p class="meta">Go 1.27 · ~8 MB</p>
+        </article>
       </div>
     </section>
 
-    <!-- Banda índigo: instalación -->
-    <section class="banda" id="instalar" aria-labelledby="instalar-titulo">
-      <p class="micro micro--hueso">INSTALACIÓN — UN COMANDO</p>
-      <h2 class="banda__titulo" id="instalar-titulo">Instalación remota.</h2>
-      <p class="banda__cuerpo">Un comando. Detecta tu sistema y descarga el binario. Sin .deb, sin gestores, sin fricción.</p>
+    <!-- Instalar -->
+    <section class="seccion" id="instalar" aria-labelledby="instalar-titulo">
+      <h2 class="titulo-seccion" id="instalar-titulo">Instalación remota.</h2>
+      <p class="seccion__sub">Un comando. Detecta tu sistema y descarga el binario. Sin .deb, sin gestores.</p>
       <div class="campo">
         <pre id="cmd-instalar"><code>curl -fsSL https://raw.githubusercontent.com/eleodevv/nine/main/install.sh | bash</code></pre>
-        <button class="copiar" type="button" data-copiar="cmd-instalar">COPIAR</button>
+        <button class="boton-fantasma" type="button" data-copiar="cmd-instalar">Copiar</button>
       </div>
-      <p class="micro micro--hueso" id="detectado">DETECTANDO TU SISTEMA…</p>
-      <ul class="opciones">
-        <li><code>--system</code><span>instala en /usr/local/bin</span></li>
-        <li><code>--build</code><span>compila desde el código con Go</span></li>
-        <li><code>--prefix=DIR</code><span>elige el destino</span></li>
+      <p class="detectado" id="detectado">Detectando tu sistema…</p>
+      <ul class="etiquetas">
+        <li><code>--system</code> instala en /usr/local/bin</li>
+        <li><code>--build</code> compila desde el código con Go</li>
+        <li><code>--prefix=DIR</code> elige el destino</li>
       </ul>
-      <p class="banda__cuerpo"><a class="banda__link" href="https://github.com/eleodevv/nine/releases">[ VER RELEASES → ]</a></p>
+      <p class="seccion__sub"><a class="violeta" href="https://github.com/eleodevv/nine/releases">Ver releases.</a></p>
     </section>
-
-    <p class="caption">BINARIOS PARA LINUX, MACOS Y WINDOWS — GO 1.27 · SSE · QR</p>
 
     <!-- App -->
     <section class="seccion" id="app" aria-labelledby="app-titulo">
       <h2 class="titulo-seccion" id="app-titulo">nine en tu bolsillo.</h2>
-      <p class="cuerpo">App Expo en modo oscuro. Tres pantallas y nada más.</p>
+      <p class="seccion__sub">App Expo en modo oscuro. Tres pantallas y nada más.</p>
       <ol class="pasos">
         <li><span class="pasos__n">01</span><div><h3>Inicio</h3><p>Toca + para vincular. Si ya hay una laptop, entra directo.</p></div></li>
         <li><span class="pasos__n">02</span><div><h3>Vincular</h3><p>Escanea el QR o escribe el código de 6 dígitos más la IP.</p></div></li>
         <li><span class="pasos__n">03</span><div><h3>Puertos</h3><p>Lista en vivo, confirmación antes de matar y perfil para elevar.</p></div></li>
       </ol>
-      <div class="campo campo--hueso">
+      <div class="campo campo--estrecho">
         <pre id="cmd-app"><code>cd nine/app &amp;&amp; npx expo start</code></pre>
-        <button class="copiar copiar--hueso" type="button" data-copiar="cmd-app">COPIAR</button>
+        <button class="boton-fantasma" type="button" data-copiar="cmd-app">Copiar</button>
       </div>
     </section>
   </main>
 
   <footer class="pie" role="contentinfo">
-    <p class="micro">NINE — TERMINAL NINE</p>
-    <p class="micro">GO 1.27 · EXPO · HECHO A MANO</p>
-    <p class="micro">© <span id="anio">2026</span></p>
+    <nav aria-label="Secundaria">
+      <a href="#resumen">Resumen</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#instalar">Instalar</a>
+      <a href="#app">App</a>
+    </nav>
+    <p><strong>nine</strong> — Terminal Nine · Hecho con Go y Expo · © <span id="anio">2026</span></p>
   </footer>
 
   <script src="main.js" defer></script>

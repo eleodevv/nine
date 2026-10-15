@@ -46,46 +46,13 @@
           return;
         }
         var original = boton.textContent;
-        boton.textContent = 'COPIADO';
+        boton.textContent = 'Copiado';
         setTimeout(function () {
           boton.textContent = original;
         }, 1600);
       });
     });
   });
-
-  /* Acordeón */
-  document.querySelectorAll('.fila__boton').forEach(function (boton) {
-    boton.addEventListener('click', function () {
-      var abierto = boton.getAttribute('aria-expanded') === 'true';
-      var panel = document.getElementById(boton.getAttribute('aria-controls'));
-      var signo = boton.querySelector('.fila__signo');
-      boton.setAttribute('aria-expanded', String(!abierto));
-      if (signo) {
-        signo.textContent = abierto ? '+' : '×';
-      }
-      if (panel) {
-        panel.hidden = abierto;
-      }
-    });
-  });
-
-  /* Menú móvil */
-  var menuBoton = document.querySelector('.menu');
-  var menuLista = document.getElementById('menu-lista');
-  if (menuBoton && menuLista) {
-    menuBoton.addEventListener('click', function () {
-      var abierto = menuBoton.getAttribute('aria-expanded') === 'true';
-      menuBoton.setAttribute('aria-expanded', String(!abierto));
-      menuLista.hidden = abierto;
-    });
-    menuLista.querySelectorAll('a').forEach(function (enlace) {
-      enlace.addEventListener('click', function () {
-        menuBoton.setAttribute('aria-expanded', 'false');
-        menuLista.hidden = true;
-      });
-    });
-  }
 
   /* Detección de plataforma (informativa; el instalador confirma al correr) */
   var detectado = document.getElementById('detectado');
@@ -100,7 +67,7 @@
     var l = pista.toLowerCase();
     var esMovil = /android|iphone|ipad|ipod/.test(l) && !/windows|macintosh|linux/.test(l);
     if (esMovil) {
-      detectado.textContent = 'DISPOSITIVO MÓVIL → INSTALA NINE EN TU LAPTOP';
+      detectado.textContent = 'Estás en el móvil → instala nine en tu laptop';
     } else {
       var so = /win/.test(l) ? 'WINDOWS' : (/mac|darwin/.test(l) ? 'MACOS' : 'LINUX');
       var arq = /arm64|aarch64/.test(l) ? 'ARM64' : 'X86-64';
@@ -113,8 +80,8 @@
       };
       var activo = mapa[so + '|' + arq];
       detectado.textContent = activo
-        ? 'SISTEMA DETECTADO: ' + so + ' · ' + arq + ' → ' + activo
-        : 'SISTEMA NO LISTADO → USA ./install.sh --build';
+        ? 'Detectado: ' + so + ' · ' + arq + ' → ' + activo
+        : 'Sistema no listado → usa ./install.sh --build';
     }
   }
 })();
