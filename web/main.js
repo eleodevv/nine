@@ -7,6 +7,23 @@
     anio.textContent = String(new Date().getFullYear());
   }
 
+  /* Menú móvil */
+  var botonMenu = document.querySelector('[data-menu]');
+  var menuMovil = document.getElementById('menu-movil');
+  if (botonMenu && menuMovil) {
+    botonMenu.addEventListener('click', function () {
+      var abierto = botonMenu.getAttribute('aria-expanded') === 'true';
+      botonMenu.setAttribute('aria-expanded', abierto ? 'false' : 'true');
+      menuMovil.hidden = abierto;
+    });
+    menuMovil.querySelectorAll('a').forEach(function (enlace) {
+      enlace.addEventListener('click', function () {
+        botonMenu.setAttribute('aria-expanded', 'false');
+        menuMovil.hidden = true;
+      });
+    });
+  }
+
   function copiarTexto(texto, listo) {
     function alternativa() {
       var area = document.createElement('textarea');
@@ -41,14 +58,15 @@
       if (!pre) {
         return;
       }
+      var etiqueta = boton.querySelector('span') || boton;
       copiarTexto(pre.textContent.trim(), function (ok) {
         if (!ok) {
           return;
         }
-        var original = boton.textContent;
-        boton.textContent = 'Copiado';
+        var original = etiqueta.textContent;
+        etiqueta.textContent = 'Copiado';
         setTimeout(function () {
-          boton.textContent = original;
+          etiqueta.textContent = original;
         }, 1600);
       });
     });

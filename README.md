@@ -12,6 +12,14 @@ curl -fsSL https://raw.githubusercontent.com/eleodevv/nine/main/install.sh | bas
 
 Opciones: `--system` (instala en `/usr/local/bin`), `--build` (compila desde fuente), `--prefix=DIR`.
 
+## Desinstalar
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/eleodevv/nine/main/uninstall.sh | bash
+```
+
+Opciones: `--system` (quita de `/usr/local/bin`), `--prefix=DIR`, `--datos` (borra también `~/.config/nine` y `~/.cache/nine`). Respeta instalaciones por enlace (p. ej. pipx).
+
 ## Uso
 
 ```bash

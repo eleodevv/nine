@@ -5,18 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="nine — Terminal Nine. Administra los puertos de tu laptop desde la terminal o el móvil, en tiempo real.">
   <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
   <title>nine — Terminal Nine</title>
-  <link rel="stylesheet" href="styles.css?v=2">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="nine — Terminal Nine">
+  <meta property="og:description" content="Administra los puertos de tu laptop desde la terminal o el móvil, en tiempo real.">
+  <meta property="og:url" content="https://eleodevv.github.io/nine/web/">
+
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <defs>
+      <symbol id="i-term" viewBox="0 0 16 16"><rect x="1.25" y="1.75" width="13.5" height="12.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M4.5 6l2.5 2.5-2.5 2.5M8.75 11.5h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 16 16"><rect x="4.25" y="1.25" width="7.5" height="13.5" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7 12.4h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+      <symbol id="i-pulse" viewBox="0 0 16 16"><path d="M1.5 8h3l2-4 3 8 2-4h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-qr" viewBox="0 0 16 16"><rect x="1.5" y="1.5" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="9.5" y="1.5" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="1.5" y="9.5" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 9.5h2v2h-2zM12.5 12.5h2v2h-2zM12.5 9.5h2M9.5 14.5h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 1.5l5 2v4c0 3.2-2.1 5.6-5 7-2.9-1.4-5-3.8-5-7v-4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.75 8l1.6 1.6L10.5 6.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-stop" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="5.75" y="5.75" width="4.5" height="4.5" rx="1" fill="currentColor"/></symbol>
+      <symbol id="i-play" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 5.5l4 2.5-4 2.5z" fill="currentColor"/></symbol>
+      <symbol id="i-box" viewBox="0 0 16 16"><path d="M8 1.5l6 3.2v6.6L8 14.5l-6-3.2V4.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M2 4.7l6 3.2 6-3.2M8 7.9v6.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 3.5A2 2 0 008.5 1.5h-5a2 2 0 00-2 2v5a2 2 0 002 2" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    </defs>
+  </svg>
+
   <a class="skip" href="#resumen">Saltar al contenido</a>
 
-  <p class="anuncio">Nuevo · Emparejamiento por QR con expiración real. <a href="#app">Cómo vincular.</a></p>
+  <p class="anuncio">
+    Nuevo · Emparejamiento por QR con expiración real.
+    <a href="#app">Cómo vincular</a>.
+  </p>
 
   <header class="nav" role="banner">
     <nav class="nav__inner" aria-label="Global">
       <a class="logo" href="#resumen" aria-label="nine, inicio">
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="1.5" width="15" height="15" rx="4" fill="none" stroke="#ffffff" stroke-width="1.5"/><path d="M5 6h8M5 9h8M5 12h5" stroke="#cbb0f7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-term"/></svg>
         <span>nine</span>
       </a>
       <div class="nav__links">
@@ -26,55 +52,70 @@
         <a href="#app">App</a>
       </div>
       <a class="pildora" href="#instalar">Descargar</a>
+      <button class="nav__menu" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu-movil" data-menu>
+        <span></span><span></span><span></span>
+      </button>
     </nav>
+    <div class="nav__movil" id="menu-movil" hidden>
+      <a href="#resumen">Resumen</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#instalar">Instalar</a>
+      <a href="#app">App</a>
+    </div>
   </header>
 
   <main id="resumen">
     <!-- Héroe -->
     <section class="heroe" aria-labelledby="heroe-titulo">
+      <span class="etiqueta-fila">
+        <span class="chip">v1.0.0</span>
+        <span class="chip">Go 1.27</span>
+        <span class="chip chip--violeta">Expo SDK 57</span>
+      </span>
       <h1 class="heroe__titulo" id="heroe-titulo">Tus puertos, bajo control.</h1>
-      <p class="heroe__sub">nine vigila los puertos de tu laptop y te deja pararlos desde la terminal o desde el móvil, en tiempo real y por WiFi local.</p>
+      <p class="heroe__sub">nine vigila los puertos TCP de tu laptop y te deja pararlos desde la terminal o desde el móvil, en tiempo real y por WiFi local.</p>
 
       <div class="demos">
-        <article class="demo">
-          <div class="demo__cabecera">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="3" fill="none" stroke="#ffffff" stroke-width="1.5"/><path d="M4.5 5.5l3 3-3 3M8.5 11.5H12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <article class="producto">
+          <div class="producto__cabecera">
+            <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-term"/></svg></span>
             <div>
               <h2>nine · Terminal</h2>
               <p>Empareja con QR o administra puertos sin soltar el teclado.</p>
             </div>
           </div>
-          <div class="demo__botones">
+          <div class="producto__botones">
             <a class="boton-fantasma" href="#funciones">Ver funciones</a>
             <a class="boton-relleno" href="#instalar">Instalar nine</a>
           </div>
           <div class="terminal" role="img" aria-label="Interfaz de nine en la terminal">
             <div class="terminal__barra" aria-hidden="true"><span></span><span></span><span></span><em>nine — 192.168.1.20:9009</em></div>
-<pre class="terminal__texto"><span class="v">nine</span> · Terminal Nine      ● 192.168.1.20:9009
+<pre class="terminal__texto"><span class="v">nine</span> · Terminal Nine      <span class="ok">●</span> 192.168.1.20:9009
+────────────────────────────────
 <span class="v">▸</span> Generar código y QR
   Administrar puertos
 
  PUERTO   PROCESO      PID      ESTADO
- 3000     node         18342    ● activo
- 5432     postgres     987      ● activo</pre>
+ 3000     node         18342    <span class="ok">● activo</span>
+ 5432     postgres     987      <span class="ok">● activo</span></pre>
           </div>
         </article>
 
-        <article class="demo">
-          <div class="demo__cabecera">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="1.5" width="9" height="13" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1.5"/><path d="M7 12.5h2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <article class="producto">
+          <div class="producto__cabecera">
+            <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-phone"/></svg></span>
             <div>
               <h2>nine · App</h2>
               <p>Puertos en vivo en tu bolsillo: mira, mata y eleva.</p>
             </div>
           </div>
-          <div class="demo__botones">
+          <div class="producto__botones">
             <a class="boton-fantasma" href="#app">Cómo vincular</a>
             <a class="boton-relleno" href="#app">Ver la app</a>
           </div>
           <div class="terminal" role="img" aria-label="App de nine mostrando puertos">
             <div class="terminal__barra" aria-hidden="true"><span></span><span></span><span></span><em>Puertos en escucha</em></div>
-<pre class="terminal__texto"> <span class="v">●</span> Mi laptop              <span class="v">3 activos</span>
+<pre class="terminal__texto"><span class="ok">●</span> Mi laptop              <span class="v">3 activos</span>
 
  <span class="v">3000</span>   node · PID 18342      Matar
  5432   postgres · PID 987      Matar
@@ -84,39 +125,59 @@
       </div>
     </section>
 
+    <!-- Compatibilidad -->
+    <section class="compat" aria-label="Compatibilidad">
+      <p class="compat__leyenda">Un solo binario estático. Corre donde tú corres.</p>
+      <ul class="compat__fila">
+        <li><svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-box"/></svg><span>Linux</span></li>
+        <li><svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-box"/></svg><span>macOS</span></li>
+        <li><svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-box"/></svg><span>Windows</span></li>
+        <li><svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-phone"/></svg><span>Android</span></li>
+        <li><svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-phone"/></svg><span>iOS</span></li>
+        <li><svg class="glifo" width="20" height="20" aria-hidden="true"><use href="#i-term"/></svg><span>Go</span></li>
+      </ul>
+    </section>
+
     <!-- Funciones -->
     <section class="seccion" id="funciones" aria-labelledby="funciones-titulo">
       <h2 class="titulo-seccion" id="funciones-titulo">Hecho para el flujo diario.</h2>
+      <p class="seccion__sub">Cada función existe porque la usas en un día normal de trabajo, no porque quede bonita.</p>
       <div class="rejilla">
         <article class="tarjeta">
+          <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-pulse"/></svg></span>
           <h3>Tiempo real</h3>
           <p>La terminal y el móvil se actualizan solos por eventos en vivo cuando un puerto aparece o desaparece.</p>
-          <p class="meta"><code>GET /eventos</code> · ≤1 s</p>
+          <p class="meta"><code>GET /eventos</code></p>
         </article>
         <article class="tarjeta">
+          <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-qr"/></svg></span>
           <h3>QR y código</h3>
           <p>Código de 6 dígitos con 2:00 de vida, un solo uso y QR escaneable desde la terminal.</p>
-          <p class="meta"><code>POST /emparejar</code> · 401 si expiró</p>
+          <p class="meta"><code>POST /emparejar</code></p>
         </article>
         <article class="tarjeta">
+          <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-shield"/></svg></span>
           <h3>Privilegios</h3>
-          <p>Eleva con el diálogo nativo del sistema y controla también los puertos de root.</p>
-          <p class="meta"><code>pkexec</code> · osascript · UAC</p>
+          <p>Eleva con el diálogo nativo del sistema y controla también los puertos que corren como root.</p>
+          <p class="meta"><code>pkexec · osascript · UAC</code></p>
         </article>
         <article class="tarjeta">
+          <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-stop"/></svg></span>
           <h3>Parar procesos</h3>
           <p>Termina el proceso de un puerto con confirmación, desde la terminal o el móvil.</p>
           <p class="meta">confirmación · animación de salida</p>
         </article>
         <article class="tarjeta">
+          <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-play"/></svg></span>
           <h3>Lanzar servidores</h3>
           <p>Levanta Python o Node en el puerto que elijas, directo desde la app.</p>
-          <p class="meta"><code>POST /lanzar</code> · python · node</p>
+          <p class="meta"><code>POST /lanzar</code></p>
         </article>
         <article class="tarjeta">
+          <span class="marca-icono"><svg class="glifo" width="16" height="16" aria-hidden="true"><use href="#i-box"/></svg></span>
           <h3>Binarios</h3>
           <p>Linux, macOS Intel y Apple Silicon, y Windows. Un solo archivo, sin dependencias.</p>
-          <p class="meta">Go 1.27 · ~8 MB</p>
+          <p class="meta">~8 MB · sin librerías</p>
         </article>
       </div>
     </section>
@@ -124,10 +185,14 @@
     <!-- Instalar -->
     <section class="seccion" id="instalar" aria-labelledby="instalar-titulo">
       <h2 class="titulo-seccion" id="instalar-titulo">Instalación remota.</h2>
-      <p class="seccion__sub">Un comando. Detecta tu sistema y descarga el binario. Sin .deb, sin gestores.</p>
+      <p class="seccion__sub">Un comando. Detecta tu sistema, descarga el binario correcto y lo deja listo. Sin .deb, sin gestores de paquetes.</p>
       <div class="campo">
+        <svg class="glifo campo__icono" width="16" height="16" aria-hidden="true"><use href="#i-term"/></svg>
         <pre id="cmd-instalar"><code>curl -fsSL https://raw.githubusercontent.com/eleodevv/nine/main/install.sh | bash</code></pre>
-        <button class="boton-fantasma" type="button" data-copiar="cmd-instalar">Copiar</button>
+        <button class="boton-fantasma" type="button" data-copiar="cmd-instalar" aria-label="Copiar comando de instalación">
+          <svg class="glifo" width="15" height="15" aria-hidden="true"><use href="#i-copy"/></svg>
+          <span>Copiar</span>
+        </button>
       </div>
       <p class="detectado" id="detectado">Detectando tu sistema…</p>
       <ul class="etiquetas">
@@ -135,35 +200,90 @@
         <li><code>--build</code> compila desde el código con Go</li>
         <li><code>--prefix=DIR</code> elige el destino</li>
       </ul>
-      <p class="seccion__sub"><a class="violeta" href="https://github.com/eleodevv/nine/releases">Ver releases.</a></p>
+
+      <div class="desinstalar">
+        <div class="desinstalar__texto">
+          <h3>¿Desinstalar?</h3>
+          <p>Quita el binario y, si quieres, también sus datos.</p>
+        </div>
+        <div class="campo campo--estrecho">
+          <pre id="cmd-desinstalar"><code>curl -fsSL https://raw.githubusercontent.com/eleodevv/nine/main/uninstall.sh | bash</code></pre>
+          <button class="boton-fantasma" type="button" data-copiar="cmd-desinstalar" aria-label="Copiar comando de desinstalación">
+            <svg class="glifo" width="15" height="15" aria-hidden="true"><use href="#i-copy"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="seccion__sub seccion__sub--fin"><a class="violeta" href="https://github.com/eleodevv/nine/releases">Ver releases y binarios.</a></p>
     </section>
 
     <!-- App -->
     <section class="seccion" id="app" aria-labelledby="app-titulo">
-      <h2 class="titulo-seccion" id="app-titulo">nine en tu bolsillo.</h2>
-      <p class="seccion__sub">App Expo en modo oscuro. Tres pantallas y nada más.</p>
-      <ol class="pasos">
-        <li><span class="pasos__n">01</span><div><h3>Inicio</h3><p>Toca + para vincular. Si ya hay una laptop, entra directo.</p></div></li>
-        <li><span class="pasos__n">02</span><div><h3>Vincular</h3><p>Escanea el QR o escribe el código de 6 dígitos más la IP.</p></div></li>
-        <li><span class="pasos__n">03</span><div><h3>Puertos</h3><p>Lista en vivo, confirmación antes de matar y perfil para elevar.</p></div></li>
-      </ol>
-      <div class="campo campo--estrecho">
-        <pre id="cmd-app"><code>cd nine/app &amp;&amp; npx expo start</code></pre>
-        <button class="boton-fantasma" type="button" data-copiar="cmd-app">Copiar</button>
+      <div class="app">
+        <div class="app__texto">
+          <h2 class="titulo-seccion titulo-seccion--izq" id="app-titulo">nine en tu bolsillo.</h2>
+          <p class="seccion__sub seccion__sub--izq">App Expo en modo oscuro. Tres pantallas y nada más. Se conecta a tu laptop por WiFi local; sin nube, sin cuentas.</p>
+          <ol class="pasos">
+            <li><span class="pasos__n">01</span><div><h3>Inicio</h3><p>Toca + para vincular. Si ya hay una laptop guardada, entra directo.</p></div></li>
+            <li><span class="pasos__n">02</span><div><h3>Vincular</h3><p>Escanea el QR o escribe el código de 6 dígitos más la IP de tu laptop.</p></div></li>
+            <li><span class="pasos__n">03</span><div><h3>Puertos</h3><p>Lista en vivo, confirmación antes de matar y perfil para elevar privilegios.</p></div></li>
+          </ol>
+          <div class="campo campo--estrecho">
+            <svg class="glifo campo__icono" width="16" height="16" aria-hidden="true"><use href="#i-term"/></svg>
+            <pre id="cmd-app"><code>cd nine/app &amp;&amp; npx expo start</code></pre>
+            <button class="boton-fantasma" type="button" data-copiar="cmd-app" aria-label="Copiar comando para arrancar la app">
+              <svg class="glifo" width="15" height="15" aria-hidden="true"><use href="#i-copy"/></svg>
+              <span>Copiar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="app__visor" aria-hidden="true">
+          <div class="movil">
+            <div class="movil__barra"><span></span></div>
+            <div class="movil__pantalla">
+              <div class="movil__cima"><span class="movil__punto"></span> Mi laptop <em>3 activos</em></div>
+              <div class="movil__fila"><b>3000</b><span>node · 18342</span><i>Matar</i></div>
+              <div class="movil__fila"><b>5432</b><span>postgres · 987</span><i>Matar</i></div>
+              <div class="movil__fila movil__fila--v"><b>3306</b><span>mariadb · —</span><i>Elevar</i></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="pie" role="contentinfo">
-    <nav aria-label="Secundaria">
-      <a href="#resumen">Resumen</a>
-      <a href="#funciones">Funciones</a>
-      <a href="#instalar">Instalar</a>
-      <a href="#app">App</a>
-    </nav>
-    <p><strong>nine</strong> — Terminal Nine · Hecho con Go y Expo · © <span id="anio">2026</span></p>
+    <div class="pie__columnas">
+      <div class="pie__marca">
+        <a class="logo" href="#resumen" aria-label="nine, inicio">
+          <svg class="glifo" width="18" height="18" aria-hidden="true"><use href="#i-term"/></svg>
+          <span>nine</span>
+        </a>
+        <p>Terminal Nine · Hecho con Go y Expo.</p>
+      </div>
+      <nav aria-label="Producto">
+        <h4>Producto</h4>
+        <a href="#resumen">Resumen</a>
+        <a href="#funciones">Funciones</a>
+        <a href="#instalar">Instalar</a>
+        <a href="#app">App</a>
+      </nav>
+      <nav aria-label="Recursos">
+        <h4>Recursos</h4>
+        <a href="https://github.com/eleodevv/nine/releases">Releases</a>
+        <a href="https://github.com/eleodevv/nine/blob/main/install.sh">install.sh</a>
+        <a href="https://github.com/eleodevv/nine/blob/main/uninstall.sh">uninstall.sh</a>
+        <a href="https://github.com/eleodevv/nine#readme">README</a>
+      </nav>
+    </div>
+    <div class="pie__base">
+      <p>© <span id="anio">2026</span> nine — Terminal Nine</p>
+      <p class="pie__estado"><span class="ok">●</span> <span class="v">:9009</span> escuchando en tu red local</p>
+    </div>
   </footer>
 
-  <script src="main.js?v=2" defer></script>
+  <script src="main.js?v=3" defer></script>
 </body>
 </html>
