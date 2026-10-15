@@ -1,0 +1,14 @@
+# Node / Expo
+app/node_modules/
+app/.expo/
+app/dist/
+app/*.tgz
+
+# Go
+*.test
+*.out
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+*~
